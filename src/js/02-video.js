@@ -8,6 +8,7 @@ const onPlay = function (data) {
   // data is an object containing properties specific to that event
   console.log('played the video!');
   console.log(data);
+  localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
 };
 
 player.on('timeupdate', onPlay);
