@@ -10,7 +10,7 @@ const onPlay = function (data) {
   console.log(data);
 };
 
-player.on('play', onPlay);
+player.on('timeupdate', onPlay);
 
 // player.on('play', function () {
 //   console.log('played the video!');
