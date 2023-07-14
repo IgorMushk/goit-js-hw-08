@@ -17,6 +17,8 @@ refs.form.addEventListener('input', throttle(onInput, 500));
 
 refs.emailInput.value = readStorage().email;
 refs.messageArea.value = readStorage().message;
+saveData.email = readStorage().email;
+saveData.message = readStorage().message;
 
 function onFormSubmit(evt) {
   evt.preventDefault();
@@ -27,6 +29,8 @@ function onFormSubmit(evt) {
   console.log(saveData);
   refs.emailInput.value = '';
   refs.messageArea.value = '';
+  saveData.email = '';
+  saveData.message = '';
   localStorage.removeItem(KEY_STOREGE);
 }
 
