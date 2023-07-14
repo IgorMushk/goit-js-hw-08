@@ -16,7 +16,7 @@ const refs = {
 // console.log(refs.textArea);
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input', onInput);
+refs.form.addEventListener('input', throttle(onInput, 500));
 
 //readStorege();
 //console.log(readStorege());
@@ -51,7 +51,7 @@ function onInput(evt) {
 
 function readStorege() {
   const savedSettings = localStorage.getItem(KEY_STOREGE);
-  console.log('Read storage', savedSettings);
+  //console.log('Read storage', savedSettings);
 
   if (!savedSettings) {
     const parsedSettings = {
