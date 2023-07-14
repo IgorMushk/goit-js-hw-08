@@ -21,11 +21,10 @@ refs.messageArea.value = readStorage().message;
 function onFormSubmit(evt) {
   evt.preventDefault();
   if (!refs.emailInput.value || !refs.messageArea.value) {
-    alert('You must fill in all fields!');
+    alert('You must fill all fields!');
     return;
   }
-  console.log('email: ', refs.emailInput.value);
-  console.log('message: ', refs.messageArea.value);
+  console.log(saveData);
   refs.emailInput.value = '';
   refs.messageArea.value = '';
   localStorage.removeItem(KEY_STOREGE);
