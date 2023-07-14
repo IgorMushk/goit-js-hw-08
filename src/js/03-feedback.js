@@ -26,11 +26,12 @@ refs.emailInput.value = readStorege().email;
 refs.textArea.value = readStorege().text;
 
 function onFormSubmit(evt) {
-  event.preventDefault();
-  console.log(refs.emailInput.value);
-  console.log(refs.textArea.value);
+  evt.preventDefault();
+  console.log('email: ', refs.emailInput.value);
+  console.log('message: ', refs.textArea.value);
   refs.emailInput.value = '';
   refs.textArea.value = '';
+  localStorage.removeItem(KEY_STOREGE);
 }
 
 function onInput(evt) {
@@ -51,7 +52,41 @@ function onInput(evt) {
 
 function readStorege() {
   const savedSettings = localStorage.getItem(KEY_STOREGE);
-  const parsedSettings = JSON.parse(savedSettings);
+  console.log('Read storage', savedSettings);
+  //   if (savedSettings) {
+  //     try {
+  //       const parsedSettings = JSON.parse(savedSettings);
+  //     } catch {
+  //       const parsedSettings = {
+  //         email: '',
+  //         text: '',
+  //       };
+  //     }
+  //   } else {
+  //     const parsedSettings = {
+  //       email: '',
+  //       text: '',
+  //     };
+  //     console.log(parsedSettings);
+  //   }
+
+  if (!savedSettings) {
+    const parsedSettings = {
+      email: '',
+      text: '',
+    };
+    return parsedSettings;
+  }
+
+  try {
+    const parsedSettings = JSON.parse(savedSettings);
+  } catch {
+    const parsedSettings = {
+      email: '',
+      text: '',
+    };
+  }
+
   console.log(parsedSettings);
   return parsedSettings;
 }
