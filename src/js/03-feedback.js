@@ -3,60 +3,47 @@ import throttle from 'lodash.throttle';
 const KEY_STOREGE = 'feedback-form-state';
 const saveData = {
   email: '',
-  text: '',
+  message: '',
 };
 
 const refs = {
   form: document.querySelector('.feedback-form'),
   emailInput: document.querySelector('input[name="email"]'),
-  textArea: document.querySelector('textarea[name="message"]'),
+  messageArea: document.querySelector('textarea[name="message"]'),
 };
-// console.dir(refs.form);
-// console.log(refs.emailInput);
-// console.log(refs.textArea);
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle(onInput, 500));
 
-//readStorege();
-//console.log(readStorege());
-
-refs.emailInput.value = readStorege().email;
-refs.textArea.value = readStorege().text;
+refs.emailInput.value = readStorage().email;
+refs.messageArea.value = readStorage().message;
 
 function onFormSubmit(evt) {
   evt.preventDefault();
+  if (!refs.emailInput.value || !refs.messageArea.value) {
+    alert('You must fill in all fields!');
+    return;
+  }
   console.log('email: ', refs.emailInput.value);
-  console.log('message: ', refs.textArea.value);
+  console.log('message: ', refs.messageArea.value);
   refs.emailInput.value = '';
-  refs.textArea.value = '';
+  refs.messageArea.value = '';
   localStorage.removeItem(KEY_STOREGE);
 }
 
 function onInput(evt) {
-  //   const valueEmail = evt.currentTarget.elements.email.value;
-  //   console.log(valueEmail);
-  //   const valueTextAr = evt.currentTarget.elements.message.value;
-  //   console.log(valueTextAr);
-  const {
-    elements: { email, message },
-  } = evt.currentTarget;
-  //console.dir(email);
-  //console.log(email.value, message.value);
-
-  saveData.email = email.value;
-  saveData.text = message.value;
+  const inputName = evt.target.name;
+  const inputeValue = evt.target.value;
+  saveData[inputName] = inputeValue;
   localStorage.setItem(KEY_STOREGE, JSON.stringify(saveData));
 }
 
-function readStorege() {
+function readStorage() {
   const savedSettings = localStorage.getItem(KEY_STOREGE);
-  //console.log('Read storage', savedSettings);
-
   if (!savedSettings) {
     const parsedSettings = {
       email: '',
-      text: '',
+      message: '',
     };
     return parsedSettings;
   }
@@ -67,11 +54,8 @@ function readStorege() {
   } catch {
     const parsedSettings = {
       email: '',
-      text: '',
+      message: '',
     };
     return parsedSettings;
   }
-
-  //console.log(parsedSettings);
-  //return parsedSettings;
 }
