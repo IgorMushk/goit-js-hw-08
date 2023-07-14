@@ -18,8 +18,7 @@ const refs = {
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', onInput);
 
-readStorege();
-refs.emailInput.value;
+//readStorege();
 //console.log(readStorege());
 
 refs.emailInput.value = readStorege().email;
@@ -53,22 +52,6 @@ function onInput(evt) {
 function readStorege() {
   const savedSettings = localStorage.getItem(KEY_STOREGE);
   console.log('Read storage', savedSettings);
-  //   if (savedSettings) {
-  //     try {
-  //       const parsedSettings = JSON.parse(savedSettings);
-  //     } catch {
-  //       const parsedSettings = {
-  //         email: '',
-  //         text: '',
-  //       };
-  //     }
-  //   } else {
-  //     const parsedSettings = {
-  //       email: '',
-  //       text: '',
-  //     };
-  //     console.log(parsedSettings);
-  //   }
 
   if (!savedSettings) {
     const parsedSettings = {
@@ -80,13 +63,15 @@ function readStorege() {
 
   try {
     const parsedSettings = JSON.parse(savedSettings);
+    return parsedSettings;
   } catch {
     const parsedSettings = {
       email: '',
       text: '',
     };
+    return parsedSettings;
   }
 
-  console.log(parsedSettings);
-  return parsedSettings;
+  //console.log(parsedSettings);
+  //return parsedSettings;
 }
